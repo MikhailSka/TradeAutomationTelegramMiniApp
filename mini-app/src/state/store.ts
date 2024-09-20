@@ -33,7 +33,7 @@ interface AppState {
   resetClaimStartTime: () => void; 
 }
 
-export const useAppStore = create<AppState>((set, get) => ({
+export const useAppStore = create<AppState>((set) => ({
   username: 'Mike_1878',
   points: 0,
   farmingStartTime: null,  // No farming initially

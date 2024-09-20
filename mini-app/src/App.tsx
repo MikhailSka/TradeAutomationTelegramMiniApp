@@ -25,9 +25,9 @@ const App: React.FC = () => {
 
       <BottomNavigation
         value={value}
-        onChange={(event: React.SyntheticEvent, newValue: number) => {
+        onChange={(_, newValue: number) => {
           setValue(newValue);
-        }}
+        }}        
         showLabels
         style={{ position: 'fixed', bottom: 0, width: '100%' }}
       >

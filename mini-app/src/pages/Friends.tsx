@@ -24,7 +24,6 @@ const Friends: React.FC = () => {
         if (remaining > 0) {
           const hours = Math.floor(remaining / (1000 * 60 * 60));
           const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
           setTimeLeft(`${hours}h ${minutes.toString().padStart(2, '0')}m`);
           setClaimStatus('wait');  // User needs to wait
         } else {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Box, Typography, Badge } from '@mui/material';
+import { Button, Box, Typography } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Completed icon
 import YouTubeIcon from '@mui/icons-material/YouTube'; // Example: YouTube icon
 import TwitterIcon from '@mui/icons-material/Twitter'; // Example: Twitter icon
