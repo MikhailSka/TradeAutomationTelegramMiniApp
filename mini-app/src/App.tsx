@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const [value, setValue] = useState<number>(0);
 
   return (
-    <Router>
+    <Router basename='/TradeAutomationTelegramMiniApp/'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tasks" element={<Tasks />} />
