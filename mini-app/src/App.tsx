@@ -1,62 +1,36 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-// import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import Groups2Icon from '@mui/icons-material/Groups2';
-import TaskIcon from '@mui/icons-material/Assignment';
-import Home from './pages/Home';
-import Tasks from './pages/Tasks';
-import Friends from './pages/Friends';
-// import Wallet from './pages/Wallet';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { useAppStore } from './state/store';
+import createMuiTheme from './utils/createMuiTheme';
 
+// import Header from './components/Layout/Header';
+import Footer from './components/Layout/Footer';
+
+import Home from './pages/Home/Home';
+import Tasks from './pages/Tasks/Tasks';
+import Friends from './pages/Friends/Friends';
 
 const App: React.FC = () => {
-  const [value, setValue] = useState<number>(0);
+  const themeParams = useAppStore((state) => state.themeParams);
+  const colorScheme = useAppStore((state) => state.colorScheme);
+
+  const theme = createMuiTheme(themeParams || {}, colorScheme);
 
   return (
-    <Router basename='/TradeAutomationTelegramMiniApp/'>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/friends" element={<Friends />} />
-        {/* <Route path="/wallet" element={<Wallet />} /> */}
-      </Routes>
-
-      <BottomNavigation
-        value={value}
-        onChange={(_, newValue: number) => {
-          setValue(newValue);
-        }}        
-        showLabels
-        style={{ position: 'fixed', bottom: 0, width: '100%' }}
-      >
-        <BottomNavigationAction
-          component={Link}
-          to="/"
-          label="Home"
-          icon={<HomeIcon />}
-        />
-        <BottomNavigationAction
-          component={Link}
-          to="/tasks"
-          label="Tasks"
-          icon={<TaskIcon />}
-        />
-        <BottomNavigationAction
-          component={Link}
-          to="/friends"
-          label="Friends"
-          icon={<Groups2Icon />}
-        />
-        {/* <BottomNavigationAction
-          component={Link}
-          to="/wallet"
-          label="Wallet"
-          icon={<AccountBalanceWalletIcon />}
-        /> */}
-      </BottomNavigation>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router basename="/">
+        {/* Optionally include Header */}
+        {/* <Header /> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/friends" element={<Friends />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </ThemeProvider>
   );
 };
 

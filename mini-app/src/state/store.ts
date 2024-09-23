@@ -1,4 +1,6 @@
+
 import create from 'zustand';
+import { TelegramWebAppThemeParams } from '../types/telegram-web-app';
 
 interface Task {
   id: number;
@@ -23,6 +25,9 @@ interface AppState {
   pointsFromReferrals: number;
   tasks: Task[];
   friends: Friend[];
+  telegramData: string | null;
+  themeParams: TelegramWebAppThemeParams | null;
+  colorScheme: 'light' | 'dark'; // Added colorScheme
   setUsername: (username: string) => void;
   setPoints: (points: number) => void;
   startFarming: () => void;
@@ -30,68 +35,70 @@ interface AppState {
   markTaskComplete: (id: number) => void;
   collectFarmingPoints: () => void;
   collectReferralPoints: () => void;
-  resetClaimStartTime: () => void; 
+  resetClaimStartTime: () => void;
+  setTelegramData: (data: string) => void;
+  setThemeParams: (params: TelegramWebAppThemeParams) => void;
+  setColorScheme: (scheme: 'light' | 'dark') => void; // Added setter
 }
 
 export const useAppStore = create<AppState>((set) => ({
-  username: 'Mike_1878',
+  username: 'User',
   points: 0,
-  farmingStartTime: null,  // No farming initially
-  claimStartTime: null,    // No claim initially
-  pointsFromReferrals: 889,  // Example referral points
+  farmingStartTime: null,
+  claimStartTime: null,
+  pointsFromReferrals: 1000,
 
   tasks: [
-    { id: 1, title: 'Backing from Binance', points: 111, isComplete: false, platform: 'Twitter' },
-    { id: 2, title: 'Forks Explained', points: 250, isComplete: false, platform: 'YouTube' },
-    { id: 3, title: 'TON Voices Live', points: 250, isComplete: true, platform: 'YouTube' },
-    { id: 4, title: 'What\'s DAO?', points: 250, isComplete: true, platform: 'YouTube' },
+    { id: 1, title: 'Follow us on Twitter', points: 50, isComplete: false, platform: 'Twitter' },
+    { id: 2, title: 'Watch our YouTube video', points: 100, isComplete: false, platform: 'YouTube' },
   ],
 
   friends: [
-    { id: 1, name: 'Marooned1988', invitedFriendsCount: 10, totalPoints: 168666 },
-    { id: 2, name: 'donnval2', invitedFriendsCount: 7, totalPoints: 119968 },
-    { id: 3, name: 'imarchenko013', invitedFriendsCount: 1, totalPoints: 85132 },
+    { id: 1, name: 'Alice', invitedFriendsCount: 5, totalPoints: 500 },
+    { id: 2, name: 'Bob', invitedFriendsCount: 3, totalPoints: 300 },
   ],
 
-  // Set the username
-  setUsername: (username: string) => set({ username }),
+  telegramData: null,
+  themeParams: null,
+  colorScheme: 'dark', // Default to dark
 
-  // Add points to the total
-  setPoints: (points: number) => set((state) => ({
-    points: state.points + points,
-  })),
+  setUsername: (username) => set({ username }),
 
-  // Start farming and record the start time
+  setPoints: (points) => set((state) => ({ points: state.points + points })),
+
   startFarming: () => set({ farmingStartTime: Date.now() }),
 
-  // Reset farming start time
   resetFarming: () => set({ farmingStartTime: null }),
 
-  // Mark a specific task as complete and add points
-  markTaskComplete: (id: number) => set((state) => {
-    const task = state.tasks.find((task) => task.id === id);
-    if (task && !task.isComplete) {
-      task.isComplete = true;
-      return {
-        tasks: [...state.tasks],
-        points: state.points + task.points,
-      };
-    }
-    return state; 
-  }),
+  markTaskComplete: (id) =>
+    set((state) => {
+      const tasks = state.tasks.map((task) =>
+        task.id === id ? { ...task, isComplete: true } : task
+      );
+      const completedTask = state.tasks.find((task) => task.id === id && !task.isComplete);
+      if (completedTask) {
+        return { tasks, points: state.points + completedTask.points };
+      }
+      return { tasks };
+    }),
 
-  // Function to collect farming points after farming is completed
-  collectFarmingPoints: () => set((state) => ({
-    points: state.points + 50,  // Add 50 points when farming is complete
-    farmingStartTime: null,     // Reset farming start time after collecting points
-  })),
+  collectFarmingPoints: () =>
+    set((state) => ({
+      points: state.points + 50,
+      farmingStartTime: null,
+    })),
 
-  // Function to collect referral points
-  collectReferralPoints: () => set((state) => ({
-    points: state.points + state.pointsFromReferrals,  // Add referral points to total points
-    pointsFromReferrals: 0,  // Reset referral points after claiming
-  })),
+  collectReferralPoints: () =>
+    set((state) => ({
+      points: state.points + state.pointsFromReferrals,
+      pointsFromReferrals: 0,
+    })),
 
-  // Function to reset the claim start time for collecting referral points
-  resetClaimStartTime: () => set({ claimStartTime: Date.now() }), 
+  resetClaimStartTime: () => set({ claimStartTime: Date.now() }),
+
+  setTelegramData: (data) => set({ telegramData: data }),
+
+  setThemeParams: (params) => set({ themeParams: params }),
+
+  setColorScheme: (scheme) => set({ colorScheme: scheme }), // Setter for colorScheme
 }));
