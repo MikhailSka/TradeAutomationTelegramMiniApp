@@ -46,11 +46,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   inviteButton: {
     height: '50px',
     borderRadius: '10px',
-    backgroundColor: 'transparent',
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
-    border: `2px solid ${theme.palette.primary.contrastText}`,
     '&:hover': {
-      backgroundColor: '#4e4f4e',
+      backgroundColor: theme.palette.primary.dark,
     },
   },
   bottomSection: {

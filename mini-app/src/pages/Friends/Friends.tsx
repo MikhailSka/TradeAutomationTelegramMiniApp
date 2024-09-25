@@ -3,6 +3,7 @@ import { Box, Typography, Avatar } from '@mui/material';
 import { useAppStore } from '../../state/store';
 import Button from '../../components/Common/Button';
 import useStyles from './Friends.styles';
+import InviteFriendModal from '../../components/InviteFriendModal/InviteFriendModal';
 
 const Friends: React.FC = () => {
   const classes = useStyles();
@@ -58,6 +59,17 @@ const Friends: React.FC = () => {
     }
   };
 
+  // State to control the Invite Friend Modal
+  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+
+  const handleOpenInviteModal = () => {
+    setIsInviteModalOpen(true);
+  };
+
+  const handleCloseInviteModal = () => {
+    setIsInviteModalOpen(false);
+  };
+
   return (
     <Box className={classes.root}>
       {/* Header */}
@@ -86,7 +98,7 @@ const Friends: React.FC = () => {
 
       {/* Friends List */}
       <Typography variant="h6" sx={{ marginBottom: '1rem' }}>
-        {friends.length} friends
+        {friends.length} friend{friends.length !== 1 ? 's' : ''}
       </Typography>
       {friends.map((friend) => (
         <Box key={friend.id} className={classes.friendItem}>
@@ -99,7 +111,7 @@ const Friends: React.FC = () => {
                 {friend.name}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                + {friend.invitedFriendsCount} friends
+                + {friend.invitedFriendsCount} friend{friend.invitedFriendsCount !== 1 ? 's' : ''}
               </Typography>
             </Box>
           </Box>
@@ -112,10 +124,20 @@ const Friends: React.FC = () => {
 
       {/* Sticky Invite Button */}
       <Box className={classes.bottomSection}>
-        <Button fullWidth className={classes.inviteButton}>
+        <Button
+          fullWidth
+          className={classes.inviteButton}
+          onClick={handleOpenInviteModal}
+        >
           Invite a friend
         </Button>
       </Box>
+
+      {/* Invite Friend Modal */}
+      <InviteFriendModal
+        open={isInviteModalOpen}
+        onClose={handleCloseInviteModal}
+      />
     </Box>
   );
 };

@@ -4,6 +4,7 @@ export interface UserState {
   username: string;
   points: number;
   farmingStartTime: number | null;
+  referralLink: string;
   setUsername: (username: string) => void;
   addPoints: (points: number) => void;
   startFarming: () => void;
@@ -13,6 +14,7 @@ export interface UserState {
 export const createUserSlice: StateCreator<any, [], [], UserState> = (set) => ({
   username: 'User',
   points: 0,
+  referralLink: 'https://yourapp.com/referral?code=12345',
   farmingStartTime: null,
 
   setUsername: (username: string) => set({ username }),
