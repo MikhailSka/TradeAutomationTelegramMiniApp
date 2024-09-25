@@ -1,4 +1,4 @@
 import React from 'react';
-import { TelegramWebApp } from '../../types/telegram-web-app';
+import { TelegramWebApp } from '../../models/TelegramWebApp';
 
 export const TelegramContext = React.createContext<TelegramWebApp | null>(null);

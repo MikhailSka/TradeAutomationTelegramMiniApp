@@ -1,5 +1,5 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
-import { TelegramWebAppThemeParams } from '../types/telegram-web-app';
+import { TelegramWebAppThemeParams } from '../models/TelegramWebApp'; 
 
 const createMuiTheme = (
   themeParams: TelegramWebAppThemeParams,

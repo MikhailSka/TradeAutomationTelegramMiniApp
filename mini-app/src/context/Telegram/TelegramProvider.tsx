@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TelegramContext } from './TelegramContext';
-import { TelegramWebApp } from '../../types/telegram-web-app';
+import { TelegramWebApp } from '../../models/TelegramWebApp';
 import { useAppStore } from '../../state/store';
 
 interface TelegramProviderProps {
