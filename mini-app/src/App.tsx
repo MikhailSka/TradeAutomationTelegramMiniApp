@@ -4,7 +4,6 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import { useAppStore } from './state/store';
 import createMuiTheme from './utils/createMuiTheme';
 
-// import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 
 import Home from './pages/Home/Home';
@@ -20,9 +19,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router basename="/">
-        {/* Optionally include Header */}
-        {/* <Header /> */}
+      <Router basename="/TradeAutomationTelegramMiniApp/">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tasks" element={<Tasks />} />
