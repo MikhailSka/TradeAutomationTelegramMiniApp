@@ -22,8 +22,17 @@ const createMuiTheme = (
       },
     },
     typography: {
-      fontFamily: '"CustomFont", "Roboto", "Helvetica", "Arial", sans-serif',
-    },    
+      fontFamily: '"Roboto Mono", "Roboto", "Helvetica", "Arial", sans-serif', // Added Roboto Mono
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: `
+          body {
+            font-family: 'Roboto Mono', 'Roboto', sans-serif;
+          }
+        `,
+      },
+    },
   });
 };
 
